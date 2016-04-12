@@ -1,5 +1,4 @@
-var scope = '',
-    sectors = [],
+var xfunction = '', nmis_malaria = '', nmis_antenatal = '', nmis_c_section = '', nmis_child_health = '', nmis_family_planning ='', nmis_maternal_health = '', nmis_vaccines = '', nmis_emergency = '',
     geoData = null,
     dataLayer = null,
     markerGroup = null,
@@ -65,52 +64,70 @@ function adjustLayerbyZoom(zoomLevel) {
 }
 
 function triggerUiUpdate() {
-    scope = $('#projectScope').val()
-    var query = buildQuery(scope, sectors)
+    //scope = $('#projectScope').val()
+    var query = buildQuery(xfunction, nmis_malaria, nmis_antenatal, nmis_c_section, nmis_child_health, nmis_family_planning, nmis_maternal_health, nmis_vaccines, nmis_emergency)
+    console.log("Query in Trigger: ", query)
     getData(query)
 }
 
-function buildSelectedSectors(sector) {
-    var idx = sectors.indexOf(sector)
-    if (idx > -1)
-        sectors.splice(idx, 1)
-    else if (idx == -1) {
-        if (sector != null)
-            sectors.push(sector)
-    }
-    toggleClass(sector)
-    triggerUiUpdate()
-}
 
-function toggleClass(id) {
-    /*console.log("Selected", id)*/
-    if (id != null) {
-        if ($('#'.concat(id)).hasClass('btn-primary')) {
-            $('#'.concat(id)).removeClass('btn-primary')
-            $('#'.concat(id)).addClass('btn-'.concat(id))
-        } else if ($('#'.concat(id)).hasClass('btn-'.concat(id))) {
-            $('#'.concat(id)).removeClass('btn-'.concat(id))
-            $('#'.concat(id)).addClass('btn-primary')
-        }
-    }
-}
 
-function buildQuery(_scope, _sectors) {
-    //returns geojson
-    var containsAnd = false;
-    query = 'http://ehealthafrica.cartodb.com/api/v2/sql?format=GeoJSON&q=SELECT * FROM granteedata_copy';
-    query = (_scope.length > 0 || _sectors.length > 0) ? query.concat(' WHERE') : query;
-    if (_scope.length > 0) {
-        query = (_sectors.length > 0) ? query.concat(" scope_of_work = '".concat(scope.concat("' AND"))) : query.concat(" scope_of_work = '".concat(scope.concat("'")))
-    }
-    if (_sectors.length > 0) {
-        for (var i = 0; i < _sectors.length; i++) {
-            if (i == 0)
-                query = query.concat(" sector='" + _sectors[i] + "'");
-            else query = query.concat(" OR sector='" + _sectors[i] + "'")
-        }
-    }
-    //console.log("Query ", query)
+function buildQuery(xfunction, nmis_malaria, nmis_antenatal, nmis_c_section, nmis_child_health, nmis_family_planning, nmis_maternal_health, nmis_vaccines, nmis_emergency) {
+    var needsAnd = false;
+    query = 'http://ehealthafrica.cartodb.com/api/v2/sql?format=GeoJSON&q=SELECT * FROM health_facilities_child_health';
+    if (nmis_malaria != null || nmis_antenatal!= null || nmis_c_section!= null || nmis_child_health!= null || nmis_family_planning!= null || nmis_maternal_health!= null || nmis_vaccines!= null || nmis_emergency != null ){
+      query = query.concat(" WHERE")
+
+      if(xfunction == ''){
+        query = query.concat(" function != ''")
+        needsAnd = true
+      }
+
+      if (nmis_malaria.length > 0) {
+        query = needsAnd  ? query.concat(" AND nmis_malaria = '".concat(nmis_malaria.concat("'"))) :  query.concat(" nmis_malaria = '".concat(nmis_malaria.concat("'")))
+        needsAnd = true
+      }
+
+
+      if (nmis_antenatal.length > 0) {
+        query = needsAnd  ? query.concat(" AND nmis_antenatal = '".concat(nmis_antenatal.concat("'"))) :  query.concat(" nmis_antenatal = '".concat(nmis_antenatal.concat("'")))
+        needsAnd = true
+      }
+
+
+      if (nmis_c_section.length > 0) {
+        query = needsAnd  ? query.concat(" AND nmis_c_section = '".concat(nmis_c_section.concat("'"))) :  query.concat(" nmis_c_section = '".concat(nmis_c_section.concat("'")))
+        needsAnd = true
+      }
+
+      if (nmis_child_health.length > 0) {
+        query = needsAnd  ? query.concat(" AND nmis_child_health = '".concat(nmis_child_health.concat("'"))) :  query.concat(" nmis_child_health = '".concat(nmis_child_health.concat("'")))
+        needsAnd = true
+      }
+
+      if (nmis_family_planning.length > 0) {
+        query = needsAnd  ? query.concat(" AND nmis_family_planning = '".concat(nmis_family_planning.concat("'"))) :  query.concat(" nmis_family_planning = '".concat(nmis_family_planning.concat("'")))
+        needsAnd = true
+      }
+
+
+      if (nmis_maternal_health.length > 0) {
+        query = needsAnd  ? query.concat(" AND nmis_maternal_health = '".concat(nmis_maternal_health.concat("'"))) :  query.concat(" nmis_maternal_health = '".concat(nmis_maternal_health.concat("'")))
+        needsAnd = true
+      }
+
+      if (nmis_vaccines.length > 0) {
+        query = needsAnd  ? query.concat(" AND nmis_vaccines = '".concat(nmis_vaccines.concat("'"))) :  query.concat(" nmis_vaccines = '".concat(nmis_vaccines.concat("'")))
+        needsAnd = true
+      }
+
+       if (nmis_emergency.length > 0) {
+        query = needsAnd  ? query.concat(" AND nmis_emergency = ".concat(nmis_emergency)) :  query.concat(" nmis_emergency = ".concat(nmis_emergency))
+        needsAnd = true
+      }
+
+  }
+
     return query;
 }
 
@@ -125,64 +142,19 @@ function addDataToMap(geoData) {
 
     if (markerGroup != null)
         map.removeLayer(markerGroup)
-
+/*
 
     var _radius = 10
     var _outColor = "#fff"
     var _weight = 1
     var _opacity = 1
-    var _fillOpacity = 0.5
+    var _fillOpacity = 0.5*/
 
-    var allColours = {
-        'Nutrition': {
-            radius: _radius,
-            fillColor: "#ff7800",
-            color: _outColor,
-            weight: _weight,
-            opacity: _opacity,
-            fillOpacity: _fillOpacity
-        },
-        'Agriculture': {
-            radius: _radius,
-            fillColor: "#33cc33",
-            color: _outColor,
-            weight: _weight,
-            opacity: _opacity,
-            fillOpacity: _fillOpacity
-        },
-        'Health': {
-            radius: _radius,
-            fillColor: "#0099cc",
-            color: _outColor,
-            weight: _weight,
-            opacity: _opacity,
-            fillOpacity: _fillOpacity
-        },
-        'Education': {
-            radius: _radius,
-            fillColor: "#ffff66",
-            color: _outColor,
-            weight: _weight,
-            opacity: _opacity,
-            fillOpacity: _fillOpacity
-        },
-        'Research': {
-            radius: _radius,
-            fillColor: "#ee82ee",
-            color: _outColor,
-            weight: _weight,
-            opacity: _opacity,
-            fillOpacity: _fillOpacity
-        },
-        'Finance': {
-            radius: _radius,
-            fillColor: "#cc3300",
-            color: _outColor,
-            weight: _weight,
-            opacity: _opacity,
-            fillOpacity: _fillOpacity
-        }
-    }
+    var markerHealth = L.icon({
+        iconUrl: "resources/H1.png",
+        iconSize: [20, 20],
+        iconAnchor: [25, 25]
+    });
 
 
     $('#projectCount').text(geoData.features.length)
@@ -195,7 +167,7 @@ function addDataToMap(geoData) {
         //console.log("geoData", geoData)
     dataLayer = L.geoJson(geoData, {
         pointToLayer: function (feature, latlng) {
-            var marker = L.circleMarker(latlng, allColours[feature.properties.sector])
+            var marker = L.marker(latlng, {icon: markerHealth})
                 //markerGroup.addLayer(marker);
             return marker
         },
@@ -216,23 +188,6 @@ function addDataToMap(geoData) {
 
 }
 
-/*
-
-var hoverStyle = {
-    "fillOpacity": 0.5
-};
-
-$.ajax({
-    type: "POST",
-    url: "http://ehealthafrica.cartodb.com/api/v2/sql?format=GeoJSON&q=SELECT * FROM nigeria_state_boundary",
-    dataType: 'json',
-    success: function (response) {
-        stateLayer = L.geoJson(response, {
-            style: style
-        }).addTo(map);
-    }
-});*/
-
 function addAdminLayersToMap(layers) {
     var layerStyles = {
             'state': {
@@ -252,17 +207,7 @@ function addAdminLayersToMap(layers) {
                 "fillOpacity": 0.1
             }
         }
-        /*
-        pointToLayer: function (feature, latlng) {
-            var marker = L.circleMarker(latlng, allColours[feature.properties.sector])
-                //markerGroup.addLayer(marker);
-            return marker
-        }
 
-
-        console.log(layers)
-console.log(layers['state'])*/
-        //console.log("state", layers['state'])
     stateLayer = L.geoJson(layers['state'], {
         style: layerStyles['state']
     }).addTo(map)
@@ -282,19 +227,6 @@ console.log(layers['state'])*/
 }
 
 
-/**
-L.geoJson(geoJsonData, {
-  onEachFeature: function(feature, layer) {
-    var label = L.marker(layer.getBounds().getCenter(), {
-      icon: L.divIcon({
-        className: 'label',
-        html: feature.properties.NAME,
-        iconSize: [100, 40]
-      })
-    }).addTo(map);
-  }
-);
-*/
 
 function displayInfo(feature) {
     //console.log('displaying info..')
@@ -313,7 +245,7 @@ function normalizeName(source) {
 
 function buildPopupContent(feature) {
     var subcontent = ''
-    var propertyNames = ['sector', 'state', 'scope_of_work', 'duration', 'bmgf_point', 'grantee_organisation', 'beneficiary', 'title_of_grant', 'nature_of_work', 'focal_state', 'organisation']
+    var propertyNames = ['primary_name', 'state_name', 'lga_name', 'ward_name']
     for (var i = 0; i < propertyNames.length; i++) {
         subcontent = subcontent.concat('<p><strong>' + normalizeName(propertyNames[i]) + ': </strong>' + feature.properties[propertyNames[i]] + '</p>')
 
@@ -362,6 +294,49 @@ function getAdminLayers() {
 
 function logError(error) {
     console.log("error!")
+}
+
+function getCheckBoxValue() {
+
+    if(document.getElementById("Malaria").checked)
+      nmis_malaria = 'Yes';
+    else
+      nmis_malaria = ''
+
+    if(document.getElementById("Family Planning").checked)
+      nmis_family_planning = 'Yes';
+    else
+      nmis_family_planning = ''
+
+    if(document.getElementById("Antenatal").checked)
+      nmis_antenatal = 'Yes';
+    else
+      nmis_antenatal = ''
+
+    if(document.getElementById("Caesarean Section").checked)
+      nmis_c_section = 'Yes';
+    else
+      nmis_c_section = ''
+
+    if(document.getElementById("Child Health").checked)
+      nmis_child_health = 'Yes';
+    else
+      nmis_child_health = ''
+
+    if(document.getElementById("Maternal Health").checked)
+      nmis_maternal_health = 'Yes';
+    else
+      nmis_maternal_health = ''
+
+    if(document.getElementById("Immunization").checked)
+      nmis_vaccines = 'Yes';
+    else
+      nmis_vaccines = ''
+
+    if(document.getElementById("Emergency").checked)
+      nmis_emergency = 'true';
+    else
+      nmis_emergency = ''
 }
 
 getAdminLayers()

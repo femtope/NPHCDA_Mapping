@@ -76,10 +76,271 @@
 
 .info-box {
     overflow: auto;
-    font-size: 10px;
+    font-size: 13px;
 }
 
 .label-icon {
     color: red;
     font-size: 10px;
+}
+#map {
+    height: 800px;
+}
+
+.skin-red-light .wrapper,
+.skin-red-light .main-sidebar,
+.skin-red-light .left-side {
+    background-color: rgba(0, 0, 0, 0.62);
+}
+
+.main-sidebar,
+.left-side {
+    width: 350px;
+}
+
+.sidebar-collapse .main-sidebar,
+.sidebar-collapse .left-side {
+    width: 0;
+}
+
+.white {
+    color: aliceblue;
+}
+
+.black {
+    color: black;
+}
+
+.red {
+    color: red;
+}
+
+.bg-aqua,
+.callout.callout-info,
+.alert-info,
+.label-info,
+.modal-info .modal-body {
+    background-color: rgba(83, 86, 76, 0) !important;
+}
+
+.alert-info {
+    border-color: rgba(83, 86, 76, 0);
+}
+
+.btn-Education {
+    background-color: rgba(255, 255, 102, 0.5);
+    border-color: rgba(255, 255, 102, 0.5);
+    color: black
+}
+
+.btn-Nutrition {
+    background-color: rgba(255, 120, 0, 0.5);
+    border-color: rgba(255, 120, 0, 0.5);
+    color: black
+}
+
+.btn-Agriculture {
+    background-color: rgba(51, 204, 51, 0.5);
+    border-color: rgba(51, 204, 51, 0.5);
+    color: black
+}
+
+.btn-Health {
+    background-color: rgba(0, 153, 204, 0.5);
+    border-color: rgba(0, 153, 204, 0.5);
+    color: black
+}
+
+.btn-Research {
+    background-color: rgba(238, 130, 238, 0.5);
+    border-color: rgba(238, 130, 238, 0.5);
+    color: black
+}
+
+.btn-Finance {
+    background-color: rgba(204, 51, 0, 0.5);
+    border-color: rgba(204, 51, 0, 0.5);
+    color: black
+}
+
+
+.labelLga-icon {
+    color: darkmagenta;
+    font-weight:bold;
+    font-size: 12px;
+    text-shadow: '#ffffff';
+}
+
+.labelWard-icon {
+    color: '#41006D';
+    text-shadow: '#ffffff';
+    font-size: bold 10px;
+}
+
+.One-color {
+    background-color: green;
+}
+
+.Two-color {
+    background-color: aqua;
+}
+
+.Three-color {
+    background-color: yellow;
+}
+
+.Four-color {
+    background-color: red;
+  }
+
+.Five-color {
+    background-color: purple;
+}
+
+.Six-color {
+    background-color: brown;
+}
+
+.Seven-color {
+    background-color: magenta;
+}
+
+.pad{
+    padding-left: 900px;
+}
+.pad1{
+    padding-top: 5px;
+    height: 4em;
+}
+.pad2 {
+    padding-bottom: 5px;
+    height: 2em;
+}
+.pad3 {
+    padding-bottom: 25px;
+    height: 2em;
+}
+
+.special-size{
+    font: bold 26px "Agency FB";
+
+}
+
+.special-size1{
+    font: bold 22px "Agency FB";
+    padding-right: 20px;
+}
+
+.country{
+    font: 20px "Agency FB";
+}
+
+.detailbox {
+    font-size: 13px;
+    text-align: justify;
+    overflow-y: scroll;
+
+}
+
+.dropdown-check-list {
+  display: inline-block;
+}
+.dropdown-check-list .anchor {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  padding: 5px 50px 5px 10px;
+  border: 1px solid #ccc;
+}
+.dropdown-check-list .anchor:after {
+  position: absolute;
+  content: "";
+  border-left: 2px solid black;
+  border-top: 2px solid black;
+  padding: 5px;
+  right: 10px;
+  top: 20%;
+  -moz-transform: rotate(-135deg);
+  -ms-transform: rotate(-135deg);
+  -o-transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+  transform: rotate(-135deg);
+}
+.dropdown-check-list .anchor:active:after {
+  right: 8px;
+  top: 21%;
+}
+.dropdown-check-list ul.items {
+  padding: 2px;
+  display: none;
+  margin: 0;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+.dropdown-check-list ul.items li {
+  list-style: none;
+}
+.dropdown-check-list.visible .anchor {
+  color: #0094ff;
+}
+.dropdown-check-list.visible .items {
+  display: block;
+}
+
+.sliderlength{
+    height: 1em;
+    width: 7em;
+    padding-bottom: 5px;
+    margin-top: 5px;
+}
+
+.sliderlength1{
+    height: 2em;
+    width: 100em;
+    padding-bottom: 5px;
+    margin-top: 5px;
+}
+
+#spinposition {
+    position: absolute;
+    top: 300px;
+    right: 700px;
+    width: 100px;
+    height: 100px;
+    background: transparent;
+}
+
+.legend {
+  position: absolute;
+  top: 350px;
+  right: 100px;
+  width: 250px;
+  height:300px;
+  background-color:floralwhite;
+  z-index:10;
+  border: 5px;
+  border-color: black;
+}
+.agric {
+    position: absolute;
+    top: 20px;
+    right: -150px;
+    width: 10px;
+    height:15px;
+    background: transparent;
+    z-index:10;
+}
+
+
+.label-icon {
+    color: brown;
+    font: bold 16px "Agency FB";
+}
+
+.checkbox {
+    padding-left: 10px;
+}
+
+.small{
+    line-height: 120%;
 }
