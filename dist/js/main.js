@@ -26,10 +26,20 @@ map.on('zoomend', function () {
     adjustLayerbyZoom(map.getZoom())
 })
 
+/*L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
+    maxZoom: 18,
+    id: 'mapbox.streets'
+}).addTo(map);*/
 
-L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 18
+L.tileLayer('https://maps.nlp.nokia.com/maptiler/v2/maptile/newest/normal.day.grey/{z}/{x}/{y}/256/png8?lg=eng&token=61YWYROufLu_f8ylE0vn0Q&app_id=qIWDkliFCtLntLma2e6O', {
+  maxZoom: 15,
+  attribution: 'Mapbox <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'
 }).addTo(map);
+
+
+/*L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18
+}).addTo(map);*/
 
 new L.Control.Zoom({
     position: 'topright'
@@ -195,7 +205,7 @@ function addAdminLayersToMap(layers) {
                 "color": '#B81609',
                 "fillColor": '#FFFFFF',
                 "weight": 1.5,
-                "opacity": 0.2,
+                "opacity": 0.5,
                 "fillOpacity": 0.1
             },
             'lga': {
@@ -236,7 +246,7 @@ function displayInfo(feature) {
 }
 
 function normalizeName(source) {
-    source = source.replace("_", " ").replace('of_', ' of ')
+    source = source.replace("_", " ").replace("_", " ").replace('of_', ' of ')
     source = source.replace(/\w\S*/g, function (txt) {
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
@@ -245,7 +255,7 @@ function normalizeName(source) {
 
 function buildPopupContent(feature) {
     var subcontent = ''
-    var propertyNames = ['primary_name', 'state_name', 'lga_name', 'ward_name']
+    var propertyNames = ['primary_name', 'state_name', 'lga_name', 'ward_name', 'nmis_malaria', 'nmis_antenatal', 'nmis_c_section', 'nmis_child_health', 'nmis_family_planning', 'nmis_maternal_health', 'nmis_vaccines', 'nmis_emergency']
     for (var i = 0; i < propertyNames.length; i++) {
         subcontent = subcontent.concat('<p><strong>' + normalizeName(propertyNames[i]) + ': </strong>' + feature.properties[propertyNames[i]] + '</p>')
 
