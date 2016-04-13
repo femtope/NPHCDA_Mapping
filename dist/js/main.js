@@ -31,10 +31,14 @@ map.on('zoomend', function () {
     id: 'mapbox.streets'
 }).addTo(map);*/
 
-L.tileLayer('https://maps.nlp.nokia.com/maptiler/v2/maptile/newest/normal.day.grey/{z}/{x}/{y}/256/png8?lg=eng&token=61YWYROufLu_f8ylE0vn0Q&app_id=qIWDkliFCtLntLma2e6O', {
+L.tileLayer('http://korona.geog.uni-heidelberg.de/tiles/roadsg/x={x}&y={y}&z={z}',{
+    maxZoom: 18
+}).addTo(map);
+
+/*L.tileLayer('https://maps.nlp.nokia.com/maptiler/v2/maptile/newest/normal.day.grey/{z}/{x}/{y}/256/png8?lg=eng&token=61YWYROufLu_f8ylE0vn0Q&app_id=qIWDkliFCtLntLma2e6O', {
   maxZoom: 15,
   attribution: 'Mapbox <a href="http://mapbox.com/about/maps" target="_blank">Terms &amp; Feedback</a>'
-}).addTo(map);
+}).addTo(map);*/
 
 
 /*L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
