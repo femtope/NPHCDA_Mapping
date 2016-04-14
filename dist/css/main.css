@@ -221,6 +221,10 @@
     height: 2em;
 }
 
+.logo_pad{
+    padding-top: 5px;
+    padding-right: 5px;
+}
 .special-size{
     font: bold 26px "Agency FB";
 
